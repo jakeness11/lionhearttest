@@ -52,8 +52,8 @@
             <h1 class="headline"><span class="accent">Your</span> Health. <span class="accent">Your</span> Fitness.</h1>
             <p class="subhead">Goal‑focused, personal training programmes designed to work into and around your lifestyle.</p>
             <div class="hero-ctas">
-              <a class="btn btn-primary" href="#contact">Get in touch</a>
-              <a class="btn btn-ghost" href="#services">Explore programmes</a>
+              <a class="btn btn-primary cta" href="#contact">Get in touch</a>
+              <a class="btn btn-ghost cta" href="#services">Explore programmes</a>
             </div>
           </div>
         </div>
@@ -202,5 +202,37 @@
     </footer>
 
     <script src="script.js"></script>
+      <script>
+  // CTA click tracking
+  document.querySelectorAll('.cta').forEach(el => {
+    el.addEventListener('click', () => {
+      gtag('event', 'cta_click', {
+        event_category: 'engagement',
+        event_label: el.textContent.trim()
+      });
+    });
+  });
+
+  // Scroll depth tracking (25, 50, 75, 100%)
+  window.addEventListener('scroll', () => {
+    const scrollDepth = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+    if (scrollDepth >= 25 && !window.scrollTracked25) {
+      gtag('event', 'scroll_depth', { depth: '25%' });
+      window.scrollTracked25 = true;
+    }
+    if (scrollDepth >= 50 && !window.scrollTracked50) {
+      gtag('event', 'scroll_depth', { depth: '50%' });
+      window.scrollTracked50 = true;
+    }
+    if (scrollDepth >= 75 && !window.scrollTracked75) {
+      gtag('event', 'scroll_depth', { depth: '75%' });
+      window.scrollTracked75 = true;
+    }
+    if (scrollDepth >= 100 && !window.scrollTracked100) {
+      gtag('event', 'scroll_depth', { depth: '100%' });
+      window.scrollTracked100 = true;
+    }
+  });
+</script>
   </body>
 </html>
